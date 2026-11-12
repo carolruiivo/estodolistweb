@@ -11,7 +11,7 @@ ADMIN_SENHA = "123456"
 def home():
     if "login" not  in session:
         return redirect("/login")
-
+    
     #usuário logado
     return render_template("index.html")
 
