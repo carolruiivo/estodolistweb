@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request, session, redirect
+from database import consultar_tarefas
 
 app = Flask(__name__)
 app.secret_key = "senai"
@@ -13,7 +14,8 @@ def home():
         return redirect("/login")
     
     #usuário logado
-    return render_template("index.html")
+    tarefas = consultar_tarefas()
+    return render_template("index.html",tarefas=tarefas)
 
 # -----------------------------------------
 # rota login

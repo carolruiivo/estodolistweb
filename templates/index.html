@@ -3,6 +3,53 @@
 
 {% block content %}
     <main class="max-w-5xl mx-auto px-4 py-6">
-        <h2 class="text-2xl font-bold">Página Inicial</h2>
+        <h2 class="text-2xl font-bold mb-4">Minhas tarefas</h2>
+        <ul class="space-y-3">
+            {% for tarefa in tarefas %}
+                <li class="bg-white rounded-xl shadow p-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                    <div class="space-y-2 sm:flex-1">
+                        {# trocaremos o span em breve #}
+                        <span class="block font-medium
+                            {% if tarefa.status == "Concluída" %}
+                            line-through text-slate-400
+                            {% endif %}">
+                            {{ tarefa.nome_tarefa }}
+                        </span>
+                        {% if tarefa.descricao %}
+                        <p class="text-sm text-slate-600">{{ tarefa.descricao }}</p>
+                        {% endif %}
+                        <div class="flex flex-wrap items-center gap-2 text-sm">
+                            <span class="px-2 py-1 rounded-full bg-slate-100 text-slate-700">
+                                {{ tarefa.categoria }}
+                            </span>
+                        
+                            <span class="text-slate-500">
+                            {{ tarefa.categoria }} · {{ tarefa.data_prazo.strftime ("%d/%m/%Y") }}
+                            </span>
+                            <span class="px-2 py-1 rounded-full
+                                {% if tarefa.prioridade == "ALTA" %}bg-red-100 text-red-700 
+                                {% elif tarefa.prioridade == "MEDIA" %}bg-amber-100 text-amber-700
+                                {% else %}bg-green-100 text-green-700
+                                {% endif %}">
+                                Prioridade:
+                                {% if tarefa.prioridade == "ALTA" %}ALTA
+                                {% elif tarefa.prioridade == "MEDIA" %}Média
+                                {% else %}Baixa{% endif %}
+                            </span>
+                            <span class="px-2 py-1 rounded-full
+                            {% if tarefa.status == "Concluída" %} bg-indigo-100 text-indigo-700
+                            {% elif tarefa.status == "Não realizada" %} border border-red-300 text-red-700 
+                            {% else %} bg-slate-200 text-slate-700
+                            {% endif %}">
+                        {{ tarefa.status }}
+                    </span>
+                        </div>
+                    </div>
+                    {# botões aqui #}
+                </li>
+                {# lista vazia aqui #}
+            {% endfor %}
+        </ul>
+        {# contador aqui #}
     </main>
 {% endblock %}
